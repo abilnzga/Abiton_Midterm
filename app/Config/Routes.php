@@ -51,3 +51,25 @@ $routes->group('menu-management', static function ($routes) {
     $routes->post('create-submenu', 'Settings::createSubMenu');
 });
 $routes->get('menu','Menu::index');
+
+// ============================================================
+// API v1 Routes
+// ============================================================
+
+// Public: issue a token (no auth required)
+$routes->post('api/v1/auth', 'Api\AuthController::issueToken');
+
+// Protected: all routes inside this group require a valid Bearer token
+$routes->group('api/v1', ['filter' => 'api_auth'], static function ($routes) {
+
+    // Revoke (logout) the current token
+    $routes->delete('auth', 'Api\AuthController::revokeToken');
+
+    // ---- Students (example protected resource) ----
+    $routes->get('students',          'Api\StudentsController::index');
+    $routes->get('students/(:num)',   'Api\StudentsController::show/$1');
+    $routes->post('students',         'Api\StudentsController::create');
+    $routes->put('students/(:num)',   'Api\StudentsController::update/$1');
+    $routes->delete('students/(:num)','Api\StudentsController::delete/$1');
+});
+
