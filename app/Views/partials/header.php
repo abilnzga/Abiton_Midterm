@@ -14,6 +14,9 @@
             <li class="nav-item d-none d-md-inline-block">
                 <a class="nav-link" href="<?= base_url('students/new'); ?>">Add Student</a>
             </li>
+            <li class="nav-item d-none d-md-inline-block">
+                <a class="nav-link" href="<?= base_url('profile'); ?>">My Profile</a>
+            </li>
         </ul>
         <ul class="navbar-nav navbar-align">
             <li class="nav-item dropdown">
@@ -24,6 +27,8 @@
                     <img src="<?= base_url('assets/images/avatar.png') ?>" class="avatar img-fluid rounded me-1" alt="<?= esc($user['display_name'] ?? $user['fullname'] ?? session()->get('name')); ?>" /> <span class="text-dark"><?= esc($user['display_name'] ?? $user['fullname'] ?? session()->get('name')); ?></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
+                    <a class="dropdown-item" href="<?= base_url('profile'); ?>">My Profile</a>
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="<?= base_url('logout'); ?> ">Log out</a>
                 </div>
             </li>

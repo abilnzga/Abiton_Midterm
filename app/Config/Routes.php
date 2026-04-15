@@ -23,6 +23,9 @@ $routes->get('students/(:num)', 'StudentInfo::show/$1');
 $routes->get('students/(:num)/edit', 'StudentInfo::edit/$1');
 $routes->put('students/(:num)', 'StudentInfo::update/$1');
 $routes->delete('students/(:num)', 'StudentInfo::delete/$1');
+$routes->get('profile', 'ProfileController::show');
+$routes->get('profile/edit', 'ProfileController::edit');
+$routes->post('profile/update', 'ProfileController::update');
 
 // Setting Routes
 $routes->group('users', static function ($routes) {
