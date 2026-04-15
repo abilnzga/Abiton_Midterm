@@ -6,6 +6,7 @@ use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
 use App\Filters\Authorization;
 use App\Filters\Authentication;
+use App\Filters\ApiAuthFilter;
 use CodeIgniter\Filters\Honeypot;
 use CodeIgniter\Filters\PageCache;
 use CodeIgniter\Filters\ForceHTTPS;
@@ -38,6 +39,7 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'isLoggedIn'    => Authentication::class,
         'isGranted'     => Authorization::class,
+        'api_auth'      => ApiAuthFilter::class,
     ];
 
     /**
@@ -73,8 +75,9 @@ class Filters extends BaseFilters
      */
     public array $globals = [
         'before' => [
-            'isLoggedIn' => ['except' => ['/', 'register', 'login']],
-            'isGranted'  => ['except' => ['/', 'register', 'login', 'logout', 'blocked', 'profile', 'profile/*']],
+            // Exclude API routes — they use Bearer token auth, not sessions
+            'isLoggedIn' => ['except' => ['/', 'register', 'login', 'api/*', 'api/v1/*']],
+            'isGranted'  => ['except' => ['/', 'register', 'login', 'logout', 'blocked', 'profile', 'profile/*', 'api/*', 'api/v1/*']],
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
